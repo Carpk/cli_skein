@@ -3,15 +3,20 @@ require_relative 'labyrinth_view'
 class LabyrinthController
 
   def initialize
-    @view = LabyrinthView.new
     @data = LabyrinthModel.new
+    @view = LabyrinthView.new(@data.exit[:name])
   end
 
   def play
     while @data.gameover? == false
       room = @data.position[:name]
       direction = @view.new_room(room)
-      @data.move(direction)
+      if @data.position[direction.to_sym] == nil
+        @view.no_door
+      else
+        @view.clear_screen
+        @data.move(direction)
+      end
     end
   end
 end
