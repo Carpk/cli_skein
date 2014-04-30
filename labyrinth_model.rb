@@ -15,12 +15,14 @@ class LabyrinthModel
   end
 
   def find_player(room, route = [])
-    nil if distance == route.length > 3
+    return if route.length > 10
+    puts "ROUTE FOUND: #{route}" if @position[:name] == room[:name]
     room.each_value do |next_room|
-      route << next_room
-      find_player(next_room, route)
+      unless next_room.class == String || next_room == nil
+        route << next_room # @maze[next_room]
+        find_player(@maze[next_room], route)
+      end
     end
-
   end
 
   def gameover?
