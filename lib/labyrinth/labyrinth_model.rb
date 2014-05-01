@@ -15,7 +15,7 @@ class LabyrinthModel
   end
 
   def find_player(room, route = [])
-    return if route.length > 10
+    return if route.length > 40
     puts "ROUTE FOUND: #{route}" if @position[:name] == room[:name]
     room.each_value do |next_room|
       unless next_room.class == String || next_room == nil

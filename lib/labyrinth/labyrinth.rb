@@ -1,5 +1,4 @@
-require_relative 'labyrinth_model'
-require_relative 'labyrinth_view'
+
 class LabyrinthController
 
   def initialize
@@ -20,5 +19,3 @@ class LabyrinthController
     end
   end
 end
-
-LabyrinthController.new.play
