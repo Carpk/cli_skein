@@ -3,9 +3,9 @@ class LabyrinthModel
 
   def initialize(maze = create_maze)
     @maze = maze
-    @position = maze.to_a[rand(0..maze.length-1)][1]
-    @grue = maze.to_a[rand(0..maze.length-1)][1]
-    @exit = maze.to_a[rand(0..maze.length-1)][1]
+    @position = generate_position
+    @grue = generate_position
+    @exit = generate_position
   end
 
   def move(direction)
@@ -14,19 +14,29 @@ class LabyrinthModel
     end
   end
 
-  def find_player(room, route = [])
-    return if route.length > 40
-    puts "ROUTE FOUND: #{route}" if @position[:name] == room[:name]
+  def find_player(room, route = [], found_route = [nil,nil,nil,nil,nil,nil])
+    route << room[:name]
+    if @position[:name] == room[:name]
+      found_route = route.dup if route.length < found_route.length
+    end
     room.each_value do |next_room|
-      unless next_room.class == String || next_room == nil
-        route << next_room # @maze[next_room]
-        find_player(@maze[next_room], route)
+      break if route.length > (found_route.length - 1)
+      if next_room.class == Symbol
+        found_route = find_player(@maze[next_room], route, found_route)
       end
     end
+    route.pop
+    found_route
   end
+
+
 
   def gameover?
     false
+  end
+
+  def generate_position
+    @maze.to_a[rand(0..@maze.length-1)][1]
   end
 
   def create_maze
