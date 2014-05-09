@@ -1,11 +1,12 @@
 class LabyrinthModel
-  attr_reader :position, :exit
+  attr_reader :position, :exit, :progress
 
   def initialize(maze = create_maze)
     @maze = maze
     @position = generate_position
     @grue = spawn_grue
     @exit = generate_position
+    @progress = true
   end
 
   def move(direction)
@@ -17,11 +18,19 @@ class LabyrinthModel
   def grue_move
     route = find_player(@grue)
     @grue = route[1]
-    return true if @grue == @position[:name]
+    if @grue == @position[:name]
+      @progress = false
+      return true
+    end
   end
 
   def grue_local?
     @grue[:name] == @position[:name]
+  end
+
+  def grue_random_move
+    direction = [:north,:east,:south,:west].sample
+    @grue[direction]
   end
 
   def find_player(room, route = [], found_route = [nil,nil,nil,nil,nil,nil])
@@ -40,7 +49,7 @@ class LabyrinthModel
   end
 
   def gameover?
-    false
+    @progress
   end
 
   def generate_position

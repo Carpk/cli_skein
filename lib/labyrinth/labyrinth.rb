@@ -12,7 +12,7 @@ class LabyrinthController
 
   def play
     turn = 0
-    while @data.gameover? == false
+    while @data.progress
       room = @data.position[:name]
       turn = rest if turn >= 5
       direction = @view.new_room(room)
@@ -29,7 +29,10 @@ class LabyrinthController
 
   def rest
     @view.rest
-    @view.gameover_lose if @data.grue_move
+    if @data.grue_move
+      @view.gameover_lose if @data.grue_move
+      @data.grue_random_move
+    end
     sleep(3)
     0
   end
