@@ -8,6 +8,10 @@ describe "labyrinth_model" do
     data.find_player(data.exit).class.should eq(Array)
   end
 
+  it "should return name of room to exit" do
+    data.exit[:name].class.should eq(String)
+  end
+
   it "should return position far from player" do
     data.spawn_grue.class.should eq(Hash)
   end

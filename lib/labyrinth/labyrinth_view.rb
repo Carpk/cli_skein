@@ -1,6 +1,7 @@
 class LabyrinthView
 
   def initialize(exit_room)
+    clear_screen
     puts "Welcome to Labyrinth, your exit is the #{exit_room}"
     puts "Press enter to begin"
     gets
@@ -19,6 +20,10 @@ class LabyrinthView
     puts "You believe you hear something off in the distance"
   end
 
+  def find_exit(rubies, exit)
+    puts "You have obtained #{rubies} Rubies, make your way to the #{exit}."
+  end
+
   def new_room(room, token = false)
     # art
     puts "you are in the #{room}"
@@ -27,10 +32,11 @@ class LabyrinthView
   end
 
   def grue_flee
-    puts "As you enter the room, you hear a strange grunting and the closing of another door."
+    puts "As you enter the room, you hear the clamering of feet and strange gruntings followed by the closing of another door."
+    puts "But low and behold, you find a beautiful shining Ruby in the middle of the floor!"
   end
 
   def gameover_lose
-    puts "The Grue enters the room and kills you. Game over."
+    puts "The Grue enters the room and eats you. Game over."
   end
 end

@@ -13,17 +13,24 @@ class LabyrinthController
   def play
     turn = 0
     while @data.progress
-      room = @data.position[:name]
-      turn = rest if turn >= 5
-      direction = @view.new_room(room)
+      direction = @view.new_room(@data.position[:name])
       if @data.position[direction.to_sym] == nil
         @view.no_door
       else
         turn += 1
-        @view.clear_screen
-        @data.move(direction)
-        @view.grue_flee if @data.grue_local?
+        take_turn(direction)
       end
+      turn = rest if turn >= 5
+    end
+  end
+
+  def take_turn(direction)
+    @view.clear_screen
+    @data.move(direction)
+    if @data.grue_local?
+      @view.grue_flee
+      @data.found_ruby
+      @view.find_exit(@data.rubies, @data.exit[:name]) if @data.rubies >= 5
     end
   end
 
@@ -36,4 +43,5 @@ class LabyrinthController
     sleep(3)
     0
   end
+
 end

@@ -1,5 +1,5 @@
 class LabyrinthModel
-  attr_reader :position, :exit, :progress
+  attr_reader :position, :exit, :progress, :rubies
 
   def initialize(maze = create_maze)
     @maze = maze
@@ -7,6 +7,7 @@ class LabyrinthModel
     @grue = spawn_grue
     @exit = generate_position
     @progress = true
+    @rubies = 0
   end
 
   def move(direction)
@@ -16,7 +17,7 @@ class LabyrinthModel
   end
 
   def grue_move
-    route = find_player(@grue)
+    route = find_player(@grue) # BROKEN?
     @grue = route[1]
     if @grue == @position[:name]
       @progress = false
@@ -29,7 +30,8 @@ class LabyrinthModel
   end
 
   def grue_random_move
-    direction = [:north,:east,:south,:west].sample
+    direction = nil
+    direction = [:north,:east,:south,:west].sample while @grue[direction] == nil
     @grue[direction]
   end
 
@@ -48,12 +50,12 @@ class LabyrinthModel
     found_route
   end
 
-  def gameover?
-    @progress
-  end
-
   def generate_position
     @maze.to_a[rand(0..@maze.length-1)][1]
+  end
+
+  def found_ruby
+    rubies += 1
   end
 
   def spawn_grue
