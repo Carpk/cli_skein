@@ -2,9 +2,7 @@ class LabyrinthView
 
   def initialize(exit_room)
     clear_screen
-    puts "Welcome to Labyrinth, your exit is the #{exit_room}"
-    puts "Press enter to begin"
-    gets
+    instructions(exit_room)
   end
 
   def no_door
@@ -24,7 +22,7 @@ class LabyrinthView
     puts "You have obtained #{rubies} Rubies, make your way to the #{exit}."
   end
 
-  def new_room(room, token = false)
+  def choose_room(room, token = false)
     # art
     puts "you are in the #{room}"
     puts "which way would you like to move next?"
@@ -33,10 +31,24 @@ class LabyrinthView
 
   def grue_flee
     puts "As you enter the room, you hear the clamering of feet and strange gruntings followed by the closing of another door."
-    puts "But low and behold, you find a beautiful shining Ruby in the middle of the floor!"
+    puts "But lo and behold, you find a beautiful shining Ruby in the middle of the floor!"
   end
 
   def gameover_lose
     puts "The Grue enters the room and eats you. Game over."
+  end
+
+  def instructions(exit_room)
+    print <<-EOF
+    Welcome to Labyrinth
+
+    You must collect 5 gems and head to the #{exit_room} to win the game.
+    If the grue enters your room on a rest move, he will devoure you and
+    you will lose the game. Good Luck!
+
+    Press enter to begin
+    EOF
+    gets
+    clear_screen
   end
 end

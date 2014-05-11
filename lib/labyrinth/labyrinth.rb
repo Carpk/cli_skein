@@ -6,14 +6,10 @@ class LabyrinthController
     @view = LabyrinthView.new(@data.exit[:name])
   end
 
-  def method_name
-
-  end
-
   def play
     turn = 0
     while @data.progress
-      direction = @view.new_room(@data.position[:name])
+      direction = @view.choose_room(@data.position[:name])
       if @data.position[direction.to_sym] == nil
         @view.no_door
       else
@@ -29,16 +25,15 @@ class LabyrinthController
     @data.move(direction)
     if @data.grue_local?
       @view.grue_flee
-      @data.found_ruby
+      @data.grue_random_move
       @view.find_exit(@data.rubies, @data.exit[:name]) if @data.rubies >= 5
     end
   end
 
   def rest
     @view.rest
-    if @data.grue_move
-      @view.gameover_lose if @data.grue_move
-      @data.grue_random_move
+    if @data.grue_find_player
+      @view.gameover_lose
     end
     sleep(3)
     0

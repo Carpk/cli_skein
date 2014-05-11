@@ -17,14 +17,14 @@ describe "labyrinth_model" do
   end
 
   it "should move grue closer to player" do
-    data.grue_move.should eq(nil)
+    data.grue_find_player.should eq(nil)
   end
 
   it "should return boolean if player and grue are in the same room" do
     data.grue_local?.should eq(false)
   end
 
-  it "should move grue to random door" do
+  it "should move grue out a random door" do
     data.grue_random_move.class.should eq(Symbol)
   end
 end

@@ -16,10 +16,9 @@ class LabyrinthModel
     end
   end
 
-  def grue_move
-    route = find_player(@grue) # BROKEN?
-    @grue = route[1]
-    if @grue == @position[:name]
+  def grue_find_player             # this method does more then one thing, its sets route to the player
+    @grue = find_player(@grue)[1]  # and returns a boolean if player is found. I forsee problems with this
+    if grue_local?
       @progress = false
       return true
     end
@@ -30,13 +29,14 @@ class LabyrinthModel
   end
 
   def grue_random_move
+    @rubies += 1
     direction = nil
     direction = [:north,:east,:south,:west].sample while @grue[direction] == nil
     @grue[direction]
   end
 
   def find_player(room, route = [], found_route = [nil,nil,nil,nil,nil,nil])
-    route << room[:name]
+    route << room
     if @position[:name] == room[:name]
       found_route = route.dup if route.length < found_route.length
     end
@@ -54,9 +54,9 @@ class LabyrinthModel
     @maze.to_a[rand(0..@maze.length-1)][1]
   end
 
-  def found_ruby
-    rubies += 1
-  end
+  # def found_ruby
+  #   @rubies += 1
+  # end
 
   def spawn_grue
     possible_position = generate_position
