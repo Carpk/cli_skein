@@ -1,5 +1,5 @@
 class LabyrinthModel
-  attr_reader :position, :exit, :progress, :rubies
+  attr_reader :progress, :rubies
 
   def initialize(maze = create_maze)
     @maze = maze
@@ -10,14 +10,26 @@ class LabyrinthModel
     @rubies = 0
   end
 
+  def position
+    @position[:name]
+  end
+
+  def exit
+    @exit[:name]
+  end
+
+  def no_door?(direction)
+    @position[direction.to_sym] == nil
+  end
+
   def move(direction)
     unless @position[direction.to_sym] == nil
       @position = @maze[@position[direction.to_sym]]
     end
   end
 
-  def grue_find_player             # this method does more then one thing, its sets route to the player
-    @grue = find_player(@grue)[1]  # and returns a boolean if player is found. I forsee problems with this
+  def grue_find_player
+    @grue = find_player(@grue)[1]
     if grue_local?
       @progress = false
       return true
@@ -32,7 +44,7 @@ class LabyrinthModel
     @rubies += 1
     direction = nil
     direction = [:north,:east,:south,:west].sample while @grue[direction] == nil
-    @grue[direction]
+    @grue = @maze[@grue[direction]]
   end
 
   def find_player(room, route = [], found_route = [nil,nil,nil,nil,nil,nil])
@@ -41,7 +53,7 @@ class LabyrinthModel
       found_route = route.dup if route.length < found_route.length
     end
     room.each_value do |next_room|
-      break if route.length >= (found_route.length)
+      break if route.length >= found_route.length
       if next_room.class == Symbol
         found_route = find_player(@maze[next_room], route, found_route)
       end

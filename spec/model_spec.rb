@@ -4,13 +4,26 @@ describe "labyrinth_model" do
 
   let(:data) {LabyrinthModel.new}
 
-  it "should return correct object" do
-    data.find_player(data.exit).class.should eq(Array)
+  it "position should return name of room" do
+    data.position.class.should eq(String)
   end
 
-  it "should return name of room to exit" do
-    data.exit[:name].class.should eq(String)
+  it "exit should return name of room to exit" do
+    data.exit.class.should eq(String)
   end
+
+  it "progress should return correct boolean" do
+    data.progress.should eq(true)
+  end
+
+  it "should return starting number of rubies" do
+    data.rubies.should eq(0)
+  end
+
+  it "should return correct object" do
+    data.grue_find_player.should eq(nil)
+  end
+
 
   it "should return position far from player" do
     data.spawn_grue.class.should eq(Hash)
@@ -25,6 +38,6 @@ describe "labyrinth_model" do
   end
 
   it "should move grue out a random door" do
-    data.grue_random_move.class.should eq(Symbol)
+    data.grue_random_move.class.should eq(Hash)
   end
 end

@@ -23,24 +23,27 @@ class LabyrinthView
   end
 
   def choose_room(room, token = false)
-    # art
     puts "you are in the #{room}"
     puts "which way would you like to move next?"
     gets.chomp
   end
 
-  def grue_flee
+  def grue_flee(num_rubies)
+    plural = "Ruby" if num_rubies == 1
     puts "As you enter the room, you hear the clamering of feet and strange gruntings followed by the closing of another door."
     puts "But lo and behold, you find a beautiful shining Ruby in the middle of the floor!"
+    puts "You have #{num_rubies} #{plural ||= "Rubies"}!"
   end
 
   def gameover_lose
-    puts "The Grue enters the room and eats you. Game over."
+    puts "The Grue enters the room and devoures you. Game over."
   end
 
   def instructions(exit_room)
     print <<-EOF
     Welcome to Labyrinth
+
+    Navigate using the commands north, south, east, and west.
 
     You must collect 5 gems and head to the #{exit_room} to win the game.
     If the grue enters your room on a rest move, he will devoure you and
