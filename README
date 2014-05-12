@@ -1,0 +1,18 @@
+
+Labyrinth
+
+  CLI game where you chase a grue to receive gems. 5 gems and make it to the exit room wins the game. If the grue enters the room on you, you lose the game!
+
+Getting Started
+
+  To use the testing suite:
+
+    rake rspec
+
+  To play the game:
+
+    rake play
+
+New Maps
+
+  Make changes to the config.rb file to make changes to your map!
