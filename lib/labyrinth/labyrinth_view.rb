@@ -36,9 +36,15 @@ class LabyrinthView
   end
 
   def gameover_lose
-    puts "The room plunges into a pitch black darkness."
+    puts "Then suddenly, room plunges into a pitch black darkness."
     puts "The Grue enters the room and removes you from existance."
     puts "Game over."
+  end
+
+  def gameover_win
+    puts "As you enter the room, you see a ray of light coming from the corner of the room"
+    puts "You push a few bolders out of the way, the light gets brighter and brighter."
+    puts "You have found a way out! Congratulation! You have won the game!"
   end
 
   def instructions(exit_room)

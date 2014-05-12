@@ -8,6 +8,3 @@ task :play do
   ruby "bin/labyrinth"
 end
 
-task :test do
-  ruby "spec/model_tests.rb"
-end

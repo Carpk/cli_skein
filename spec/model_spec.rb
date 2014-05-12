@@ -1,3 +1,4 @@
+require_relative "../config"
 require_relative "../lib/labyrinth/console"
 
 describe "labyrinth_model" do
@@ -19,14 +20,6 @@ describe "labyrinth_model" do
   it "should return starting number of rubies" do
     data.rubies.should eq(0)
   end
-
-  # it "should return boolean if door is available" do
-  #   data.no_door?("north").should eq(Boolean)
-  # end
-
-  # it "should return correct object" do
-  #   data.move("north").should eq(nil)
-  # end
 
   it "should return correct object" do
     data.grue_find_player.should eq(nil)

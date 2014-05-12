@@ -1,5 +1,7 @@
 $LOAD_PATH.unshift File.expand_path '../../lib', __FILE__
 
 require 'labyrinth/console'
+require_relative '../config'
+
 
 LabyrinthController.new.play

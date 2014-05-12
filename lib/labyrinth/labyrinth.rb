@@ -9,7 +9,7 @@ class LabyrinthController
   def play
     turn = 0
     while @data.progress
-      if turn >= 3
+      if turn >= 5
         turn = 0
         rest_move
       else
@@ -22,7 +22,7 @@ class LabyrinthController
   def rest_move
     @view.rest
     sleep(2)
-    @data.grue_find_player # this sets progress off
+    @data.grue_find_player # this sets progress off/refactor
   end
 
   def player_move
@@ -47,8 +47,8 @@ class LabyrinthController
   end
 
   def end_game?
-    if @data.win? # this sets progress off
-      @view.gameove_win
+    if @data.win? # this sets progress off/refactor
+      @view.gameover_win
     elsif @data.grue_local?
       @view.gameover_lose
     end
