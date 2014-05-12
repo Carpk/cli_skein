@@ -15,14 +15,14 @@ class LabyrinthView
 
   def rest
     puts "You have had 5 consecutive turns, you take time to rest."
-    puts "You believe you hear something off in the distance"
+    puts "It suddenly gets a little darker, but only for a brief moment"
   end
 
-  def find_exit(rubies, exit)
+  def prompt_exit(rubies, exit)
     puts "You have obtained #{rubies} Rubies, make your way to the #{exit}."
   end
 
-  def choose_room(room, token = false)
+  def choose_direction(room)
     puts "you are in the #{room}"
     puts "which way would you like to move next?"
     gets.chomp
@@ -36,7 +36,9 @@ class LabyrinthView
   end
 
   def gameover_lose
-    puts "The Grue enters the room and devoures you. Game over."
+    puts "The room plunges into a pitch black darkness."
+    puts "The Grue enters the room and removes you from existance."
+    puts "Game over."
   end
 
   def instructions(exit_room)
@@ -46,7 +48,7 @@ class LabyrinthView
     Navigate using the commands north, south, east, and west.
 
     You must collect 5 gems and head to the #{exit_room} to win the game.
-    If the grue enters your room on a rest move, he will devoure you and
+    If the grue enters your room at anytime, he will devoure you and
     you will lose the game. Good Luck!
 
     Press enter to begin

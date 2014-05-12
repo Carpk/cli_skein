@@ -32,7 +32,6 @@ class LabyrinthModel
     @grue = find_player(@grue)[1]
     if grue_local?
       @progress = false
-      return true
     end
   end
 
@@ -66,14 +65,21 @@ class LabyrinthModel
     @maze.to_a[rand(0..@maze.length-1)][1]
   end
 
-  # def found_ruby
-  #   @rubies += 1
-  # end
+  def found_ruby
+    @rubies += 1
+  end
 
   def spawn_grue
     possible_position = generate_position
     return possible_position if find_player(possible_position).length > 3
     spawn_grue
+  end
+
+  def win?
+    if @position == @exit && rubies >= 5
+      @progress = false
+      true
+    end
   end
 
   def create_maze

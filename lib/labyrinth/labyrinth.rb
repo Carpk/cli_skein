@@ -9,14 +9,30 @@ class LabyrinthController
   def play
     turn = 0
     while @data.progress
-      direction = @view.choose_room(@data.position)
-      if @data.no_door?(direction)
-        @view.no_door
+      if turn >= 3
+        turn = 0
+        rest_move
       else
-        turn += 1
-        take_turn(direction)
+        turn += player_move
       end
-      turn = rest if turn >= 3
+      end_game?
+    end
+  end
+
+  def rest_move
+    @view.rest
+    sleep(2)
+    @data.grue_find_player # this sets progress off
+  end
+
+  def player_move
+    direction = @view.choose_direction(@data.position)
+    if @data.no_door?(direction)
+      @view.no_door
+      0
+    else
+      take_turn(direction)
+      1
     end
   end
 
@@ -26,17 +42,16 @@ class LabyrinthController
     if @data.grue_local?
       @data.grue_random_move
       @view.grue_flee(@data.rubies)
-      @view.find_exit(@data.rubies, @data.exit) if @data.rubies >= 5
     end
+      @view.prompt_exit(@data.rubies, @data.exit) if @data.rubies >= 5
   end
 
-  def rest               # grue does not kill you in Oche room!
-    @view.rest
-    if @data.grue_find_player
+  def end_game?
+    if @data.win? # this sets progress off
+      @view.gameove_win
+    elsif @data.grue_local?
       @view.gameover_lose
     end
-    sleep(3)
-    0
   end
 
 end
