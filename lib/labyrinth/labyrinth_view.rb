@@ -2,6 +2,7 @@ class LabyrinthView
 
   def initialize(exit_room)
     clear_screen
+    move_to_top
     instructions(exit_room)
   end
 
@@ -11,6 +12,10 @@ class LabyrinthView
 
   def clear_screen
     print "\e[2J"
+  end
+
+  def move_to_top
+    print "\e[H"
   end
 
   def rest
@@ -61,5 +66,6 @@ class LabyrinthView
     EOF
     gets
     clear_screen
+    move_to_top
   end
 end

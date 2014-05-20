@@ -46,7 +46,7 @@ class LabyrinthModel
     @grue = @maze[@grue[direction]]
   end
 
-  def find_player(room, route = [], found_route = [nil,nil,nil,nil,nil,nil])
+  def find_player(room, route = [], found_route = new_route)
     route << room
     if @position[:name] == room[:name]
       found_route = route.dup if route.length < found_route.length
@@ -61,10 +61,13 @@ class LabyrinthModel
     found_route
   end
 
+  def new_route
+    Array.new(6)
+  end
+
   def generate_position
     @maze.to_a[rand(0..@maze.length-1)][1]
   end
-
 
   def spawn_grue
     possible_position = generate_position

@@ -22,7 +22,7 @@ class LabyrinthController
   def rest_move
     @view.rest
     sleep(2)
-    @data.grue_find_player # this sets progress off/refactor
+    @data.grue_find_player
   end
 
   def player_move
@@ -38,6 +38,7 @@ class LabyrinthController
 
   def take_turn(direction)
     @view.clear_screen
+    @view.move_to_top
     @data.move(direction)
     if @data.grue_local?
       @data.grue_random_move
@@ -47,7 +48,7 @@ class LabyrinthController
   end
 
   def end_game?
-    if @data.win? # this sets progress off/refactor
+    if @data.win?
       @view.gameover_win
     elsif @data.grue_local?
       @view.gameover_lose
