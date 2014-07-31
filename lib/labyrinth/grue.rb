@@ -1,0 +1,3 @@
+class Grue
+
+end

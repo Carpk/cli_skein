@@ -4,4 +4,4 @@ require 'labyrinth/console'
 require_relative '../config'
 
 
-LabyrinthController.new.play
+Labyrinth.new.play

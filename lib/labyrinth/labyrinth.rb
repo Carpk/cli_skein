@@ -1,14 +1,13 @@
-
-class LabyrinthController
+class Labyrinth
 
   def initialize
-    @data = LabyrinthModel.new
-    @view = LabyrinthView.new(@data.exit)
+    @game = LabyrinthModel.new
+    @view = DisplayUtility.new(@game.exit)
   end
 
   def play
     turn = 0
-    while @data.progress
+    while @game.progress
       if turn >= 5
         turn = 0
         rest_move
@@ -22,12 +21,12 @@ class LabyrinthController
   def rest_move
     @view.rest
     sleep(2)
-    @data.grue_find_player
+    @game.grue_find_player
   end
 
   def player_move
-    direction = @view.choose_direction(@data.position)
-    if @data.no_door?(direction)
+    direction = @view.choose_direction(@game.position)
+    if @game.no_door?(direction)
       @view.no_door
       0
     else
@@ -39,18 +38,18 @@ class LabyrinthController
   def take_turn(direction)
     @view.clear_screen
     @view.move_to_top
-    @data.move(direction)
-    if @data.grue_local?
-      @data.grue_random_move
-      @view.grue_flee(@data.rubies)
+    @game.move(direction)
+    if @game.grue_local?
+      @game.grue_random_move
+      @view.grue_flee(@game.rubies)
     end
-      @view.prompt_exit(@data.rubies, @data.exit) if @data.rubies >= 5
+      @view.prompt_exit(@game.rubies, @game.exit) if @game.rubies >= 5
   end
 
   def end_game?
-    if @data.win?
+    if @game.win?
       @view.gameover_win
-    elsif @data.grue_local?
+    elsif @game.grue_local?
       @view.gameover_lose
     end
   end

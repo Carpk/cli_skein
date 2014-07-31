@@ -1,4 +1,4 @@
-class LabyrinthView
+class DisplayUtility
 
   def initialize(exit_room)
     clear_screen
@@ -41,7 +41,7 @@ class LabyrinthView
   end
 
   def gameover_lose
-    puts "Then suddenly, room plunges into a pitch black darkness."
+    puts "Then the room plunges into a pitch black darkness."
     puts "The Grue enters the room and removes you from existance."
     puts "Game over."
   end
