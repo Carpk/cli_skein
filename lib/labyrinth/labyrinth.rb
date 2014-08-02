@@ -6,14 +6,14 @@ class Labyrinth
   end
 
   def play
-    turn = 0
+    grue_sleep_counter = 0
     until @game.gameover?
-      if turn < 5
+      if grue_sleep_counter < 5
         player_move
-        turn += 1
+        grue_sleep_counter += 1
       else
         rest_move
-        turn = 0
+        grue_sleep_counter = 0
       end
     end
     end_game
@@ -26,7 +26,9 @@ class Labyrinth
       @view.no_door
       direction = @view.choose_direction(@game.position).to_sym
     end
+
     take_turn(direction)
+    check_for_grue
   end
 
   def rest_move
@@ -38,12 +40,19 @@ class Labyrinth
   def take_turn(direction)
     @view.clear_screen
     @view.move_to_top
+
     @game.move(direction)
+
+    if @game.rubies >= 5
+      @view.prompt_exit(@game.rubies, @game.exit)
+    end
+  end
+
+  def check_for_grue
     if @game.grue_in_room?
       @game.grue_random_move
       @view.grue_flee(@game.rubies)
     end
-      @view.prompt_exit(@game.rubies, @game.exit) if @game.rubies >= 5
   end
 
   def end_game

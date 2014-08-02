@@ -5,7 +5,6 @@ class GamePlay
     @position = position
     @exit = position
     @grue = spawn_grue
-    @progress = true
     @rubies = 0
   end
 
@@ -28,9 +27,6 @@ class GamePlay
 
   def grue_find_player
     @grue = Compass.move_to_target(@grue, @position)
-    if grue_in_room?
-      @progress = false
-    end
   end
 
   def grue_in_room?

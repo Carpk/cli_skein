@@ -55,6 +55,16 @@ describe "Map" do
     Map.name_of_room(room).should eq("Aquamarine Room")
   end
 
+  it "should return the correct name of the room" do
+    room = :cobalt
+    Map.name_of_room(room).should eq("Cobalt Room")
+  end
+
+  it "should return the correct name of the room" do
+    room = :lavender
+    Map.name_of_room(room).should eq("Lavender Room")
+  end
+
   it "should return symbol of next room" do
     room = :ochre
     direction = :north
@@ -79,9 +89,23 @@ describe "Map" do
     Map.next_room(room, direction).should eq(:chartreuse)
   end
 
+  it "should return symbol of next room" do
+    room = :vermillion
+    direction = :south
+    Map.next_room(room, direction).should eq(:aquamarine)
+  end
 
+  it "should return symbol of next room" do
+    room = :burnt_sienna
+    direction = :north
+    Map.next_room(room, direction).should eq(:emerald)
+  end
 
-
+  it "should return symbol of next room" do
+    room = :lavender
+    direction = :east
+    Map.next_room(room, direction).should eq(:chartreuse)
+  end
 
   it "should return array of the 3 exits" do
     room = :violet
@@ -92,6 +116,12 @@ describe "Map" do
   it "should return array of 3 exits" do
     room = :emerald
     answer = [:lavender, :aquamarine, :cobalt]
+    Map.neighboring_rooms(room).should eq(answer)
+  end
+
+  it "should return array of 3 exits" do
+    room = :cobalt
+    answer = [:vermillion, :burnt_sienna, :vermillion]
     Map.neighboring_rooms(room).should eq(answer)
   end
 
@@ -107,9 +137,39 @@ describe "Map" do
     Map.neighboring_rooms(room).should eq(answer)
   end
 
+  it "should return array of 2 exits" do
+    room = :aquamarine
+    answer = [:violet, :cobalt]
+    Map.neighboring_rooms(room).should eq(answer)
+  end
+
   it "should return cardinal exits of a room" do
     room = :violet
     exits = [:east, :south, :west]
+    Map.cardinal_exits(room).should eq(exits)
+  end
+
+  it "should return cardinal exits of a room" do
+    room = :chartreuse
+    exits = [:north, :south]
+    Map.cardinal_exits(room).should eq(exits)
+  end
+
+  it "should return cardinal exits of a room" do
+    room = :emerald
+    exits = [:east, :south, :west]
+    Map.cardinal_exits(room).should eq(exits)
+  end
+
+  it "should return cardinal exits of a room" do
+    room = :cobalt
+    exits = [:north, :south, :west]
+    Map.cardinal_exits(room).should eq(exits)
+  end
+
+  it "should return cardinal exits of a room" do
+    room = :lavender
+    exits = [:east, :west]
     Map.cardinal_exits(room).should eq(exits)
   end
 end

@@ -5,7 +5,7 @@ class Compass
     rooms[1]
   end
 
-  def self.find_target(current_room, target, route = [], shortest_route = self.new_route)
+  def self.find_target(current_room, target, route = [], shortest_route = Array.new(6, ""))
     route << current_room
     if Map.name_of_room(current_room) == Map.name_of_room(target)
       shortest_route = route.dup if route.length < shortest_route.length
@@ -20,7 +20,4 @@ class Compass
     shortest_route
   end
 
-  def self.new_route
-    Array.new(6, "")
-  end
 end
