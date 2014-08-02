@@ -50,4 +50,19 @@ describe "Map" do
     Map.doors_for(room).length.should eq(3)
   end
 
+  it "should return array of 3 exits" do
+    room = :violet
+    answer = [:burnt_sienna, :burnt_sienna, :chartreuse]
+    Map.exits_for(room).should eq(answer)
+  end
+
+  it "should return the correct name of the room" do
+    room = :violet
+    Map.name_of_room(room).should eq("Violet Room")
+  end
+
+  it "should return the correct name of the room" do
+    room = :aquamarine
+    Map.name_of_room(room).should eq("Aquamarine Room")
+  end
 end

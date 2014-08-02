@@ -1,9 +1,9 @@
 class GamePlay
   attr_reader :rubies
 
-  def initialize
-    @position = Map.random_room
-    @exit = Map.random_room
+  def initialize(position = Map.random_room)
+    @position = position
+    @exit = position
     @grue = spawn_grue
     @progress = true
     @rubies = 0
@@ -11,10 +11,12 @@ class GamePlay
 
   def position
     @position[:name]
+    # Map.name_of_room(@position)
   end
 
   def exit
     @exit[:name]
+    # Map.name_of_room(@exit)
   end
 
   def no_door?(direction)
@@ -28,7 +30,7 @@ class GamePlay
   end
 
   def grue_find_player
-    @grue = find_player(@grue)[1]
+    @grue = find_player(@grue)[1] # Compass.move_to_target(@grue, @position)
     if grue_in_room?
       @progress = false
     end
