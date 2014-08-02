@@ -10,13 +10,11 @@ class GamePlay
   end
 
   def position
-    @position[:name]
-    # Map.name_of_room(@position)
+    Map.name_of_room(@position)
   end
 
   def exit
-    @exit[:name]
-    # Map.name_of_room(@exit)
+    Map.name_of_room(@exit)
   end
 
   def no_door?(direction)
@@ -30,14 +28,14 @@ class GamePlay
   end
 
   def grue_find_player
-    @grue = find_player(@grue)[1] # Compass.move_to_target(@grue, @position)
+    @grue = Compass.move_to_target(@grue, @position)
     if grue_in_room?
       @progress = false
     end
   end
 
   def grue_in_room?
-    @grue[:name] == @position[:name]
+    @grue == @position
   end
 
   def grue_random_move
@@ -47,39 +45,39 @@ class GamePlay
     @grue = Map.enter_room(@grue[direction])
   end
 
-  def find_player(room, route = [], found_route = new_route)
-    route << room
-    if @position[:name] == room[:name]
-      found_route = route.dup if route.length < found_route.length
-    end
-    room.each_value do |next_room|
-      break if route.length >= found_route.length
-      if next_room.class == Symbol
-        found_route = find_player(Map.enter_room(next_room), route, found_route)
-      end
-    end
-    route.pop
-    found_route
-  end
+  # def find_player(room, route = [], found_route = new_route)
+  #   route << room
+  #   if @position[:name] == room[:name]
+  #     found_route = route.dup if route.length < found_route.length
+  #   end
+  #   room.each_value do |next_room|
+  #     break if route.length >= found_route.length
+  #     if next_room.class == Symbol
+  #       found_route = find_player(Map.enter_room(next_room), route, found_route)
+  #     end
+  #   end
+  #   route.pop
+  #   found_route
+  # end
 
-  def new_route
-    Array.new(6)
-  end
+  # def new_route
+  #   Array.new(6)
+  # end
 
   def spawn_grue
-    possible_position = Map.random_room
-    return possible_position if find_player(possible_position).length > 3
-    spawn_grue
+    possible_spawn = Map.random_room
+    if Compass.find_target(possible_spawn, @position).length > 3
+      possible_spawn
+    else
+      spawn_grue
+    end
   end
 
   def win?
-    if @position == @exit && rubies >= 5
-      @progress = false
-      true
-    end
+    @position == @exit && rubies >= 5
   end
 
   def gameover?
-    !@progress
+    grue_in_room? || win?
   end
 end

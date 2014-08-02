@@ -6,7 +6,7 @@ describe "Map" do
   let(:map) {Map.new}
 
   it "should generate a random room hash" do
-    Map.random_room.class.should eq(Hash)
+    Map.random_room.class.should eq(Symbol)
   end
 
   it "should return name of current room" do

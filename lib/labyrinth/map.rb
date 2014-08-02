@@ -2,7 +2,7 @@ class Map
 
   def self.random_room
     map = MapConfig::Map
-    map.to_a[rand(0..map.length-1)][1]
+    map.to_a[rand(0..map.length-1)].first
   end
 
   def self.enter_room(room)
