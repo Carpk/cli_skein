@@ -8,31 +8,31 @@ class Labyrinth
   def play
     turn = 0
     until @game.gameover?
-      if turn >= 5
-        turn = 0
-        rest_move
+      if turn < 5
+        player_move
+        turn += 1
       else
-        turn += player_move
+        rest_move
+        turn = 0
       end
     end
     end_game
+  end
+
+  def player_move
+    direction = @view.choose_direction(@game.position).to_sym
+
+    until @game.door_available?(direction)
+      @view.no_door
+      direction = @view.choose_direction(@game.position).to_sym
+    end
+    take_turn(direction)
   end
 
   def rest_move
     @view.rest
     sleep(2)
     @game.grue_find_player
-  end
-
-  def player_move
-    direction = @view.choose_direction(@game.position).to_sym
-    if @game.door_available?(direction)
-      take_turn(direction)
-      1
-    else
-      @view.no_door
-      0
-    end
   end
 
   def take_turn(direction)
