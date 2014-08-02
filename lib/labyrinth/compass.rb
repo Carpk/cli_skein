@@ -10,7 +10,7 @@ class Compass
     if Map.name_of_room(current_room) == Map.name_of_room(target)
       shortest_route = route.dup if route.length < shortest_route.length
     end
-    Map.exits_for(current_room).each do |next_door|
+    Map.neighboring_rooms(current_room).each do |next_door|
       break if route.length >= shortest_route.length
       if next_door.class == Symbol
         shortest_route = self.find_target(next_door, target, route, shortest_route)
@@ -21,6 +21,6 @@ class Compass
   end
 
   def self.new_route
-    Array.new(6)
+    Array.new(6, "")
   end
 end

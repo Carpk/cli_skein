@@ -14,8 +14,8 @@ class Labyrinth
       else
         turn += player_move
       end
-      end_game?
     end
+    end_game
   end
 
   def rest_move
@@ -25,13 +25,13 @@ class Labyrinth
   end
 
   def player_move
-    direction = @view.choose_direction(@game.position)
-    if @game.no_door?(direction)
-      @view.no_door
-      0
-    else
+    direction = @view.choose_direction(@game.position).to_sym
+    if @game.door_available?(direction)
       take_turn(direction)
       1
+    else
+      @view.no_door
+      0
     end
   end
 
@@ -46,7 +46,7 @@ class Labyrinth
       @view.prompt_exit(@game.rubies, @game.exit) if @game.rubies >= 5
   end
 
-  def end_game?
+  def end_game
     if @game.win?
       @view.gameover_win
     elsif @game.grue_in_room?

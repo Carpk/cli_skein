@@ -5,27 +5,19 @@ class Map
     map.to_a[rand(0..map.length-1)].first
   end
 
-  def self.enter_room(room)
-    MapConfig::Map[room]
-  end
+  # def self.room_options(room)
+  #   MapConfig::Map[room]
+  # end
 
   def self.name_of_room(room_symbol)
     MapConfig::Map[room_symbol][:name]
   end
 
-  def self.leave_room(room, direction)
-    # this returns a new symbol
+  def self.next_room(room, direction)
+    MapConfig::Map[room][direction]
   end
 
-  def self.doors_for(room)
-    doors = []
-    room.each_value do |door| # passing in a Symbol or Hash?
-      doors << door unless door.class != Symbol
-    end
-    doors
-  end
-
-  def self.exits_for(room_symbol)
+  def self.neighboring_rooms(room_symbol)
     room = MapConfig::Map[room_symbol]
     doors = []
     room.each_value do |door|
@@ -33,4 +25,14 @@ class Map
     end
     doors
   end
+
+  def self.cardinal_exits(room_symbol)
+    room = MapConfig::Map[room_symbol]
+    directions = []
+    room.each do |direction, possible_door|
+      directions << direction if possible_door.class == Symbol
+    end
+    directions
+  end
+
 end

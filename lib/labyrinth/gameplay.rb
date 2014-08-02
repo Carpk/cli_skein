@@ -17,14 +17,16 @@ class GamePlay
     Map.name_of_room(@exit)
   end
 
-  def no_door?(direction)
-    @position[direction.to_sym] == "wall"
+  def door_available?(direction)
+    available_doors = Map.cardinal_exits(@position)
+    available_doors.include?(direction)
   end
 
   def move(direction)
-    unless @position[direction.to_sym].class != Symbol
-      @position = Map.enter_room(@position[direction.to_sym])
-    end
+    @position = Map.next_room(@position, direction)
+    # unless @position[direction].class != Symbol
+    #   @position = Map.room_options(@position[direction.to_sym]) #TODO FIX room_options
+    # end
   end
 
   def grue_find_player
@@ -42,7 +44,7 @@ class GamePlay
     @rubies += 1
     direction = nil
     direction = [:north,:east,:south,:west].sample while @grue[direction] == "wall"
-    @grue = Map.enter_room(@grue[direction])
+    @grue = Map.next_room(@grue, direction)
   end
 
   # def find_player(room, route = [], found_route = new_route)
@@ -53,7 +55,7 @@ class GamePlay
   #   room.each_value do |next_room|
   #     break if route.length >= found_route.length
   #     if next_room.class == Symbol
-  #       found_route = find_player(Map.enter_room(next_room), route, found_route)
+  #       found_route = find_player(Map.room_options(next_room), route, found_route)
   #     end
   #   end
   #   route.pop
