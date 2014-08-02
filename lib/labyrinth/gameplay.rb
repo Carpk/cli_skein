@@ -24,9 +24,6 @@ class GamePlay
 
   def move(direction)
     @position = Map.next_room(@position, direction)
-    # unless @position[direction].class != Symbol
-    #   @position = Map.room_options(@position[direction.to_sym]) #TODO FIX room_options
-    # end
   end
 
   def grue_find_player
@@ -42,29 +39,9 @@ class GamePlay
 
   def grue_random_move
     @rubies += 1
-    direction = nil
-    direction = [:north,:east,:south,:west].sample while @grue[direction] == "wall"
-    @grue = Map.next_room(@grue, direction)
+    next_direction = Map.cardinal_exits(@grue).sample
+    @grue = Map.next_room(@grue, next_direction)
   end
-
-  # def find_player(room, route = [], found_route = new_route)
-  #   route << room
-  #   if @position[:name] == room[:name]
-  #     found_route = route.dup if route.length < found_route.length
-  #   end
-  #   room.each_value do |next_room|
-  #     break if route.length >= found_route.length
-  #     if next_room.class == Symbol
-  #       found_route = find_player(Map.room_options(next_room), route, found_route)
-  #     end
-  #   end
-  #   route.pop
-  #   found_route
-  # end
-
-  # def new_route
-  #   Array.new(6)
-  # end
 
   def spawn_grue
     possible_spawn = Map.random_room

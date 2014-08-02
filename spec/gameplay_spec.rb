@@ -37,9 +37,9 @@ describe "GamePlay" do
     game.move(:west).should eq(:chartreuse)
   end
 
-  # it "should return starting number of rubies" do
-  #   game.rubies.should eq(0)
-  # end
+  it "should move grue to random room" do
+    game.grue_random_move.class.should eq(Symbol)
+  end
 
   # it "should return correct object" do
   #   game.grue_find_player.should eq(nil)

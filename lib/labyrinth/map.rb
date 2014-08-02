@@ -5,10 +5,6 @@ class Map
     map.to_a[rand(0..map.length-1)].first
   end
 
-  # def self.room_options(room)
-  #   MapConfig::Map[room]
-  # end
-
   def self.name_of_room(room_symbol)
     MapConfig::Map[room_symbol][:name]
   end
