@@ -1,13 +1,13 @@
 class Labyrinth
 
   def initialize
-    @game = LabyrinthModel.new
+    @game = GamePlay.new
     @view = DisplayUtility.new(@game.exit)
   end
 
   def play
     turn = 0
-    while @game.progress
+    until @game.gameover?
       if turn >= 5
         turn = 0
         rest_move
@@ -39,7 +39,7 @@ class Labyrinth
     @view.clear_screen
     @view.move_to_top
     @game.move(direction)
-    if @game.grue_local?
+    if @game.grue_in_room?
       @game.grue_random_move
       @view.grue_flee(@game.rubies)
     end
@@ -49,7 +49,7 @@ class Labyrinth
   def end_game?
     if @game.win?
       @view.gameover_win
-    elsif @game.grue_local?
+    elsif @game.grue_in_room?
       @view.gameover_lose
     end
   end

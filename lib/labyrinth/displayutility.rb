@@ -34,10 +34,10 @@ class DisplayUtility
   end
 
   def grue_flee(num_rubies)
-    plural = "Ruby" if num_rubies == 1
+    singular = "Ruby" if num_rubies == 1
     puts "As you enter the room, you hear the clamering of feet and strange gruntings followed by the closing of another door."
     puts "But lo and behold, you find a beautiful shining Ruby in the middle of the floor!"
-    puts "You have #{num_rubies} #{plural ||= "Rubies"}!"
+    puts "You have #{num_rubies} #{singular ||= "Rubies"}!"
   end
 
   def gameover_lose

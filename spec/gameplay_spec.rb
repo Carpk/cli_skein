@@ -5,9 +5,9 @@ describe "GamePlay" do
 
   let(:game) {GamePlay.new}
 
-  # it "should return name of room for position" do
-  #   game.position.class.should eq(String)
-  # end
+  it "should not be over when starting" do
+    game.gameover?.should eq(false)
+  end
 
   # it "should return name of room to exit" do
   #   game.exit.class.should eq(String)
