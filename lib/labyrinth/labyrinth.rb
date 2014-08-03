@@ -50,7 +50,7 @@ class Labyrinth
 
   def check_for_grue
     if @game.grue_in_room?
-      @game.grue_random_move
+      @game.grue_flee_room
       @view.grue_flee(@game.rubies)
     end
   end

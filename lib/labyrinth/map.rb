@@ -31,4 +31,12 @@ class Map
     directions
   end
 
+  def self.spawn_away_from(ward)
+    possible_spawn = Map.random_room
+    if Compass.find_target(possible_spawn, ward).length > 3
+      possible_spawn
+    else
+      self.spawn_away_from(ward)
+    end
+  end
 end

@@ -9,42 +9,6 @@ describe "Map" do
     Map.random_room.class.should eq(Symbol)
   end
 
-  # it "should return name of current room" do
-  #   Map.room_options(:vermillion)[:name].should eq("Vermillion Room")
-  # end
-
-  # it "should return name of current room" do
-  #   Map.room_options(:ochre)[:name].should eq("Ochre Room")
-  # end
-
-  # it "should return name of current room" do
-  #   Map.room_options(:chartreuse)[:name].should eq("Chartreuse Room")
-  # end
-
-  # it "should return name of current room" do
-  #   Map.room_options(:emerald)[:name].should eq("Emerald Room")
-  # end
-
-  # it "should return name of current room" do
-  #   Map.room_options(:aquamarine)[:name].should eq("Aquamarine Room")
-  # end
-
-  # it "should return name of current room" do
-  #   Map.room_options(:lavender)[:name].should eq("Lavender Room")
-  # end
-
-  # it "should return name of current room" do
-  #   Map.room_options(:cobalt)[:name].should eq("Cobalt Room")
-  # end
-
-  # it "should return name of current room" do
-  #   Map.room_options(:violet)[:name].should eq("Violet Room")
-  # end
-
-  # it "should return name of current room" do
-  #   Map.room_options(:burnt_sienna)[:name].should eq("Burnt Sienna Room")
-  # end
-
   it "should return the correct name of the room" do
     room = :violet
     Map.name_of_room(room).should eq("Violet Room")
@@ -171,5 +135,10 @@ describe "Map" do
     room = :lavender
     exits = [:east, :west]
     Map.cardinal_exits(room).should eq(exits)
+  end
+
+  it "should spawn away from certain location" do
+    rooms = [:ochre, :chartreuse, :cobalt, :lavender,:burnt_sienna]
+    rooms.include?(Map.spawn_away_from(:violet)).should eq(true)
   end
 end

@@ -1,10 +1,11 @@
 class GamePlay
   attr_reader :rubies
 
-  def initialize(position = Map.random_room)
+  def initialize(position = Map.random_room, spawn = Map.spawn_away_from(position))
     @position = position
     @exit = position
-    @grue = spawn_grue
+    @grue = spawn
+    @grue = Grue.new(spawn)
     @rubies = 0
   end
 
@@ -33,19 +34,9 @@ class GamePlay
     @grue == @position
   end
 
-  def grue_random_move
+  def grue_flee_room #TODO this is my stopping point
     @rubies += 1
-    next_direction = Map.cardinal_exits(@grue).sample
-    @grue = Map.next_room(@grue, next_direction)
-  end
-
-  def spawn_grue
-    possible_spawn = Map.random_room
-    if Compass.find_target(possible_spawn, @position).length > 3
-      possible_spawn
-    else
-      spawn_grue
-    end
+    @grue.random_move
   end
 
   def win?
