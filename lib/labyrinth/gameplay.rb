@@ -2,15 +2,15 @@ class GamePlay
   attr_reader :rubies
 
   def initialize(position = Map.random_room, spawn = Map.spawn_away_from(position))
-    @position = position
+    # @player = position
+    @player = Player.new(position)
     @exit = position
-    @grue = spawn
     @grue = Grue.new(spawn)
     @rubies = 0
   end
 
   def position
-    Map.name_of_room(@position)
+    @player.room_name
   end
 
   def exit
@@ -18,29 +18,28 @@ class GamePlay
   end
 
   def door_available?(direction)
-    available_doors = Map.cardinal_exits(@position)
-    available_doors.include?(direction)
+    @player.door_available?(direction)
   end
 
   def move(direction)
-    @position = Map.next_room(@position, direction)
+    @player.move(direction)
   end
 
   def grue_find_player
-    @grue = Compass.move_to_target(@grue, @position)
+    @grue.move_to(@player.position)
   end
 
   def grue_in_room?
-    @grue == @position
+    @grue.found_player?(@player.position)
   end
 
-  def grue_flee_room #TODO this is my stopping point
+  def grue_flee_room #TODO
     @rubies += 1
-    @grue.random_move
+    @grue.flee_room
   end
 
   def win?
-    @position == @exit && rubies >= 5
+    @player.position == @exit && rubies >= 5
   end
 
   def gameover?

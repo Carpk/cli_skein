@@ -7,7 +7,7 @@ class DisplayUtility
   end
 
   def no_door
-    puts "you check the seemless wall... there does not appear to be a door here"
+    puts "...there does not appear to be a door here"
   end
 
   def clear_screen
