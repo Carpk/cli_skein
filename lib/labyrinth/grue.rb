@@ -1,25 +1,29 @@
 class Grue
 
-  def grue_find_player
-    @grue = Compass.move_to_target(@grue, @position)
+  def initialize(position)
+    @position = position
   end
 
-  def grue_in_room?
-    @grue == @position
+  def grue_move_to(player)
+    @position = Compass.move_to_target(@position, player)
+  end
+
+  def grue_found_player?(player)
+    @position == player
   end
 
   def grue_random_move
-    @rubies += 1
-    next_direction = Map.cardinal_exits(@grue).sample
-    @grue = Map.next_room(@grue, next_direction)
+    next_direction = Map.cardinal_exits(@position).sample
+    @position = Map.next_room(@position, next_direction)
   end
 
-  def spawn_grue
+  def self.spawn_grue(ward)
     possible_spawn = Map.random_room
-    if Compass.find_target(possible_spawn, @position).length > 3
+    if Compass.find_target(possible_spawn, ward).length > 3
       possible_spawn
     else
       spawn_grue
     end
   end
+
 end
