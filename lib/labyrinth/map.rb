@@ -22,6 +22,11 @@ class Map
     doors
   end
 
+  def self.door_available?(room_symbol, direction)
+    available_doors = Map.cardinal_exits(room_symbol)
+    available_doors.include?(direction)
+  end
+
   def self.cardinal_exits(room_symbol)
     room = MapConfig::Map[room_symbol]
     directions = []

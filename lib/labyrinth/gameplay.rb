@@ -2,7 +2,6 @@ class GamePlay
   attr_reader :rubies
 
   def initialize(position = Map.random_room, spawn = Map.spawn_away_from(position))
-    # @player = position
     @player = Player.new(position)
     @exit = position
     @grue = Grue.new(spawn)
@@ -25,6 +24,10 @@ class GamePlay
     @player.move(direction)
   end
 
+  def max_rubies?
+    @player.max_rubies? #TODO better name
+  end
+
   def grue_find_player
     @grue.move_to(@player.position)
   end
@@ -35,6 +38,7 @@ class GamePlay
 
   def grue_flee_room #TODO
     @rubies += 1
+    @player.collect_ruby
     @grue.flee_room
   end
 

@@ -1,18 +1,21 @@
 class Player
   attr_reader :position
 
-  def initialize(position = :violet,rubies = 0)
+  def initialize(position,rubies = 0)
     @position = position
     @rubies = rubies
   end
 
-  # def collect_ruby
-  #   @rubies += 1
-  # end
+  def collect_ruby
+    @rubies += 1
+  end
+
+  def max_rubies? #TODO better name
+    @rubies >= 5
+  end
 
   def door_available?(direction)
-    available_doors = Map.cardinal_exits(@position)
-    available_doors.include?(direction)
+    Map.door_available?(@position, direction)
   end
 
   def move(direction)

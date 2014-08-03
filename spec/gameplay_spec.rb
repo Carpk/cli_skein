@@ -37,6 +37,10 @@ describe "GamePlay" do
     game.move(:west).should eq(:chartreuse)
   end
 
+  it "should know if player has enough rubies" do
+    game.max_rubies?.should eq(false)
+  end
+
   # it "should move grue to random room" do
   #   game.grue_random_move.class.should eq(Symbol)
   # end

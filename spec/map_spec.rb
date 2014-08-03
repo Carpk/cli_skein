@@ -107,6 +107,34 @@ describe "Map" do
     Map.neighboring_rooms(room).should eq(answer)
   end
 
+  it "should return true when door is available" do
+    Map.door_available?(:vermillion, :east).should eq(true)
+  end
+
+  it "should return true when door is available" do
+    Map.door_available?(:ochre, :north).should eq(true)
+  end
+
+  it "should return true when door is available" do
+    Map.door_available?(:lavender, :west).should eq(true)
+  end
+
+  it "should return true when door is available" do
+    Map.door_available?(:emerald, :south).should eq(true)
+  end
+
+  it "should return true when door is not available" do
+    Map.door_available?(:chartreuse, :west).should eq(false)
+  end
+
+  it "should return true when door is not available" do
+    Map.door_available?(:cobalt, :east).should eq(false)
+  end
+
+  it "should return true when door is not available" do
+    Map.door_available?(:burnt_sienna, :south).should eq(false)
+  end
+
   it "should return cardinal exits of a room" do
     room = :violet
     exits = [:east, :south, :west]

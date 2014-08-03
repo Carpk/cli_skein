@@ -43,7 +43,7 @@ class Labyrinth
 
     @game.move(direction)
 
-    if @game.rubies >= 5
+    if @game.max_rubies?
       @view.prompt_exit(@game.rubies, @game.exit)
     end
   end
