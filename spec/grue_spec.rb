@@ -3,7 +3,30 @@ require_relative "../lib/labyrinth/console"
 
 describe "Grue" do
 
-  let(:monster) {Grue.new(:violet)}
+  let(:monster) {Grue.new(:violet, 1)}
+
+  it "should know when grue is asleep" do
+    monster.asleep?.should eq(true)
+  end
+
+  it "should know when grue is not asleep" do
+    monster = Grue.new(:aquamarine, 6)
+    monster.asleep?.should eq(false)
+  end
+
+  it "should increment sleep counter" do
+    monster.sleep_turn.should eq(2)
+  end
+
+  it "should increment sleep counter" do
+    monster = Grue.new(:ochre, 3)
+    monster.sleep_turn.should eq(4)
+  end
+
+  it "should increment sleep counter" do
+    monster = Grue.new(:lavender, 4)
+    monster.sleep_turn.should eq(5)
+  end
 
   it "should move closer to player" do
     monster.move_to(:vermillion).should eq(:chartreuse)
@@ -14,7 +37,7 @@ describe "Grue" do
   end
 
   it "should move closer to player" do
-    monster = Grue.new(:aquamarine)
+    monster = Grue.new(:aquamarine, 0)
     monster.move_to(:vermillion).should eq(:cobalt)
   end
 
@@ -23,12 +46,12 @@ describe "Grue" do
   end
 
   it "should know if grue has found the player" do
-    monster = Grue.new(:ochre)
+    monster = Grue.new(:ochre, 0)
     monster.found_player?(:ochre).should eq(true)
   end
 
   it "should know if grue has found the player" do
-    monster = Grue.new(:vermillion)
+    monster = Grue.new(:vermillion, 0)
     monster.found_player?(:vermillion).should eq(true)
   end
 
@@ -51,13 +74,13 @@ describe "Grue" do
 
   it "should sent grue through random door" do
     rooms = [:ochre, :aquamarine]
-    monster = Grue.new(:vermillion)
+    monster = Grue.new(:vermillion, 0)
     rooms.include?(monster.flee_room).should eq(true)
   end
 
   it "should sent grue through random door" do
     rooms = [:chartreuse, :burnt_sienna]
-    monster = Grue.new(:lavender)
+    monster = Grue.new(:lavender, 0)
     rooms.include?(monster.flee_room).should eq(true)
   end
 end

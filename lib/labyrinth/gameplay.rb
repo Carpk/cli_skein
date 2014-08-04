@@ -1,15 +1,17 @@
 class GamePlay
-  attr_reader :rubies
 
-  def initialize(position = Map.random_room, spawn = Map.spawn_away_from(position))
-    @player = Player.new(position)
+  def initialize(position = Map.random_room, rubies = 0, spawn = Map.spawn_away_from(position), grue_sleep_count = 1)
+    @player = Player.new(position, rubies)
     @exit = position
-    @grue = Grue.new(spawn)
-    @rubies = 0
+    @grue = Grue.new(spawn, grue_sleep_count)
   end
 
   def position
     @player.room_name
+  end
+
+  def grue_asleep?
+    @grue.asleep?
   end
 
   def exit
@@ -21,11 +23,16 @@ class GamePlay
   end
 
   def move(direction)
+    @grue.sleep_turn
     @player.move(direction)
   end
 
-  def max_rubies?
-    @player.max_rubies? #TODO better name
+  def sufficient_rubies?
+    @player.sufficient_rubies?
+  end
+
+  def num_of_rubies
+    @player.rubies
   end
 
   def grue_find_player
@@ -36,14 +43,13 @@ class GamePlay
     @grue.found_player?(@player.position)
   end
 
-  def grue_flee_room #TODO
-    @rubies += 1
+  def grue_flee_room #TODO some grue runtime logic
     @player.collect_ruby
     @grue.flee_room
   end
 
   def win?
-    @player.position == @exit && rubies >= 5
+    @player.position == @exit && @player.sufficient_rubies?
   end
 
   def gameover?

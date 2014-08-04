@@ -6,61 +6,57 @@ class Labyrinth
   end
 
   def play
-    grue_sleep_counter = 0
     until @game.gameover?
-      if grue_sleep_counter < 5
-        player_move
-        grue_sleep_counter += 1
+      if @game.grue_asleep?
+
+        direction = valid_player_input
+        move_player(direction)
+
+        rubies_check
+        check_room_for_grue
       else
-        rest_move
-        grue_sleep_counter = 0
+        @view.rest
+        sleep(2)
+        @game.grue_find_player
       end
     end
-    end_game
+    final_prompts
   end
 
-  def player_move
+  def valid_player_input
     direction = @view.choose_direction(@game.position).to_sym
 
     until @game.door_available?(direction)
       @view.no_door
       direction = @view.choose_direction(@game.position).to_sym
     end
-
-    take_turn(direction)
-    check_for_grue
   end
 
-  def rest_move
-    @view.rest
-    sleep(2)
-    @game.grue_find_player
-  end
-
-  def take_turn(direction)
+  def move_player(direction)
     @view.clear_screen
-    @view.move_to_top
+    @view.move_cursor_to_top
 
     @game.move(direction)
+  end
 
-    if @game.max_rubies?
-      @view.prompt_exit(@game.rubies, @game.exit)
+  def rubies_check
+    if @game.sufficient_rubies?
+      @view.prompt_exit(@game.num_of_rubies, @game.exit)
     end
   end
 
-  def check_for_grue
+  def check_room_for_grue
     if @game.grue_in_room?
       @game.grue_flee_room
-      @view.grue_flee(@game.rubies)
+      @view.grue_flee(@game.num_of_rubies)
     end
   end
 
-  def end_game
+  def final_prompts
     if @game.win?
       @view.gameover_win
     elsif @game.grue_in_room?
       @view.gameover_lose
     end
   end
-
 end

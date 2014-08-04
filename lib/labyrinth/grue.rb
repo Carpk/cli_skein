@@ -1,8 +1,16 @@
 class Grue
 
-  def initialize(position, sleep_count = 0)
+  def initialize(position, sleep_count)
     @position = position
-    @sleep_count
+    @sleep_count = sleep_count
+  end
+
+  def asleep?
+    @sleep_count % 6 != 0
+  end
+
+  def sleep_turn
+    @sleep_count += 1
   end
 
   def move_to(player)

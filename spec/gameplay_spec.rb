@@ -38,30 +38,19 @@ describe "GamePlay" do
   end
 
   it "should know if player has enough rubies" do
-    game.max_rubies?.should eq(false)
+    game.sufficient_rubies?.should eq(false)
   end
 
-  # it "should move grue to random room" do
-  #   game.grue_random_move.class.should eq(Symbol)
-  # end
+  it "should know if player has enough rubies" do
+    game = GamePlay.new(:ochre)
+    game.sufficient_rubies?.should eq(false)
+  end
 
-  # it "should return correct object" do
-  #   game.grue_find_player.should eq(nil)
-  # end
+  it "should know if player has enough rubies" do
+    game.sufficient_rubies?.should eq(false)
+  end
 
-  # it "should return position far from player" do
-  #   game.spawn_grue.class.should eq(Hash)
-  # end
-
-  # it "should move grue closer to player" do
-  #   game.grue_find_player.should eq(nil)
-  # end
-
-  # it "should return boolean if player and grue are in the same room" do
-  #   game.grue_local?.should eq(false)
-  # end
-
-  # it "should move grue out a random door" do
-  #   game.grue_random_move.class.should eq(Hash)
-  # end
+  it "should know if player has enough rubies" do
+    game.sufficient_rubies?.should eq(false)
+  end
 end

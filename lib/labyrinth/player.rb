@@ -1,7 +1,7 @@
 class Player
-  attr_reader :position
+  attr_reader :position, :rubies
 
-  def initialize(position,rubies = 0)
+  def initialize(position,rubies)
     @position = position
     @rubies = rubies
   end
@@ -10,7 +10,7 @@ class Player
     @rubies += 1
   end
 
-  def max_rubies? #TODO better name
+  def sufficient_rubies?
     @rubies >= 5
   end
 

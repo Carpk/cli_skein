@@ -14,7 +14,7 @@ class DisplayUtility
     print "\e[2J"
   end
 
-  def move_to_top
+  def move_cursor_to_top
     print "\e[H"
   end
 
