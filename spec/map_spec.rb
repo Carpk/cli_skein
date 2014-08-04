@@ -165,8 +165,13 @@ describe "Map" do
     Map.cardinal_exits(room).should eq(exits)
   end
 
-  it "should spawn away from certain location" do
+  it "should spawn away from Violet Room" do
     rooms = [:ochre, :chartreuse, :cobalt, :lavender,:burnt_sienna]
     rooms.include?(Map.spawn_away_from(:violet)).should eq(true)
+  end
+
+  it "should spawn away from Cobalt Room" do
+    rooms = [:ochre, :lavender, :violet]
+    rooms.include?(Map.spawn_away_from(:cobalt)).should eq(true)
   end
 end

@@ -9,8 +9,43 @@ describe "Grue" do
     monster.asleep?.should eq(true)
   end
 
+  it "should know when grue is asleep" do
+    monster = Grue.new(:violet, 3)
+    monster.asleep?.should eq(true)
+  end
+
+  it "should know when grue is asleep" do
+    monster = Grue.new(:violet, 4)
+    monster.asleep?.should eq(true)
+  end
+
+  it "should know when grue is asleep" do
+    monster = Grue.new(:violet, 7)
+    monster.asleep?.should eq(true)
+  end
+
+  it "should know when grue is asleep" do
+    monster = Grue.new(:violet, 16)
+    monster.asleep?.should eq(true)
+  end
+
+  it "should know when grue is asleep" do
+    monster = Grue.new(:violet, 21)
+    monster.asleep?.should eq(true)
+  end
+
   it "should know when grue is not asleep" do
     monster = Grue.new(:aquamarine, 6)
+    monster.asleep?.should eq(false)
+  end
+
+  it "should know when grue is not asleep" do
+    monster = Grue.new(:aquamarine, 12)
+    monster.asleep?.should eq(false)
+  end
+
+  it "should know when grue is not asleep" do
+    monster = Grue.new(:aquamarine, 18)
     monster.asleep?.should eq(false)
   end
 

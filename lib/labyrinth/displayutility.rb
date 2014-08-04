@@ -2,7 +2,7 @@ class DisplayUtility
 
   def initialize(exit_room)
     clear_screen
-    move_to_top
+    move_cursor_to_top
     instructions(exit_room)
   end
 
@@ -66,6 +66,6 @@ class DisplayUtility
     EOF
     gets
     clear_screen
-    move_to_top
+    move_cursor_to_top
   end
 end

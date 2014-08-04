@@ -1,7 +1,7 @@
 class Labyrinth
 
-  def initialize
-    @game = GamePlay.new
+  def initialize(position = Map.random_room, rubies = 0, spawn = Map.spawn_away_from(position), grue_sleep_count = 1, exit = Map.random_room)
+    @game = GamePlay.new(Player.new(position, rubies), Grue.new(spawn, grue_sleep_count), exit)
     @view = DisplayUtility.new(@game.exit)
   end
 
@@ -19,24 +19,26 @@ class Labyrinth
         sleep(2)
         @game.grue_find_player
       end
+      @game.grue_sleeps
     end
     final_prompts
   end
 
   def valid_player_input
-    direction = @view.choose_direction(@game.position).to_sym
+    direction = @view.choose_direction(@game.current_room).to_sym
 
     until @game.door_available?(direction)
       @view.no_door
-      direction = @view.choose_direction(@game.position).to_sym
+      direction = @view.choose_direction(@game.current_room).to_sym
     end
+    direction
   end
 
   def move_player(direction)
     @view.clear_screen
     @view.move_cursor_to_top
 
-    @game.move(direction)
+    @game.move_player(direction)
   end
 
   def rubies_check
@@ -48,6 +50,7 @@ class Labyrinth
   def check_room_for_grue
     if @game.grue_in_room?
       @game.grue_flee_room
+      @game.issue_ruby
       @view.grue_flee(@game.num_of_rubies)
     end
   end

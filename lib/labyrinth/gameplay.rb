@@ -1,17 +1,13 @@
 class GamePlay
 
-  def initialize(position = Map.random_room, rubies = 0, spawn = Map.spawn_away_from(position), grue_sleep_count = 1)
-    @player = Player.new(position, rubies)
-    @exit = position
-    @grue = Grue.new(spawn, grue_sleep_count)
+  def initialize(player, grue, exit)
+    @player = player
+    @exit = exit
+    @grue = grue
   end
 
-  def position
+  def current_room
     @player.room_name
-  end
-
-  def grue_asleep?
-    @grue.asleep?
   end
 
   def exit
@@ -22,8 +18,7 @@ class GamePlay
     @player.door_available?(direction)
   end
 
-  def move(direction)
-    @grue.sleep_turn
+  def move_player(direction)
     @player.move(direction)
   end
 
@@ -35,6 +30,14 @@ class GamePlay
     @player.rubies
   end
 
+  def issue_ruby
+    @player.collect_ruby
+  end
+
+  def grue_asleep?
+    @grue.asleep?
+  end
+
   def grue_find_player
     @grue.move_to(@player.position)
   end
@@ -43,9 +46,12 @@ class GamePlay
     @grue.found_player?(@player.position)
   end
 
-  def grue_flee_room #TODO some grue runtime logic
-    @player.collect_ruby
+  def grue_flee_room
     @grue.flee_room
+  end
+
+  def grue_sleeps
+    @grue.sleep_turn
   end
 
   def win?

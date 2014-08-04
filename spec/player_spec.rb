@@ -24,6 +24,25 @@ describe "Player" do
     player.position.should eq(:aquamarine)
   end
 
+  it "should return correct amount of rubies" do
+    player.rubies.should eq(0)
+  end
+
+  it "should return correct amount of rubies" do
+    player = Player.new(:burnt_sienna, 2)
+    player.rubies.should eq(2)
+  end
+
+  it "should return correct amount of rubies" do
+    player = Player.new(:emerald, 3)
+    player.rubies.should eq(3)
+  end
+
+  it "should return correct amount of rubies" do
+    player = Player.new(:aquamarine, 6)
+    player.rubies.should eq(6)
+  end
+
   it "should add a single ruby to the collection" do
     player.collect_ruby.should eq(1)
   end
