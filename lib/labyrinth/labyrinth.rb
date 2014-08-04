@@ -2,10 +2,11 @@ class Labyrinth
 
   def initialize(position = Map.random_room, rubies = 0, spawn = Map.spawn_away_from(position), grue_sleep_count = 1, exit = Map.random_room)
     @game = GamePlay.new(Player.new(position, rubies), Grue.new(spawn, grue_sleep_count), exit)
-    @view = DisplayUtility.new(@game.exit)
+    @view = DisplayUtility.new
   end
 
   def play
+    @view.instructions(@game.exit)
     until @game.gameover?
       if @game.grue_asleep?
 

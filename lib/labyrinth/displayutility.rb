@@ -1,11 +1,5 @@
 class DisplayUtility
 
-  def initialize(exit_room)
-    clear_screen
-    move_cursor_to_top
-    instructions(exit_room)
-  end
-
   def no_door
     puts "...there does not appear to be a door here"
   end
@@ -53,6 +47,8 @@ class DisplayUtility
   end
 
   def instructions(exit_room)
+    clear_screen
+    move_cursor_to_top
     print <<-EOF
     Welcome to Labyrinth
 
