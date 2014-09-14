@@ -6,6 +6,7 @@ class Grue
   end
 
   def asleep?
+    puts @position
     @sleep_count % 6 != 0
   end
 
