@@ -19,7 +19,7 @@
 
 ## Screenshots
 
-![game shown as colorful app](https://raw.githubusercontent.com/Carpk/skein/master/images/Screenshot%20from%202014-10-08%2013:26:58.png)
+![game shown as colorful app](https://raw.githubusercontent.com/Carpk/cli_skein/master/images/Screenshot%20from%202014-10-08%2013:26:58.png)
 
 ## License
 
